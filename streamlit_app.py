@@ -8,12 +8,13 @@ my_bar.progress(100)
 # Using Prototype Streamlit, version 0.79.0
 
 st.sidebar.title('Sidebar')
-with st.echo():
-    form = st.sidebar.beta_form('sidebar-form')
-    name = form.text_input('Enter your name')
-    sidebar_submit = form.beta_form_submit_button('Submit')
-    if sidebar_submit:
-        st.sidebar.write(f'hello {name}')
+
+form = st.sidebar.beta_form('sidebar-form')
+name = form.text_input('Enter your name')
+sidebar_submit = form.beta_form_submit_button('Submit')
+st.sidebar.write('Press submit to have your name printed below')
+if sidebar_submit:
+    st.sidebar.write(f'hello {name}')
 
 
 st.title('Multiple Submit Buttons')
@@ -81,4 +82,44 @@ with st.echo():
         st.write(f'Uploaded file: {file}')
 
 st.markdown('---')
+
+st.title('Missing submit button')
+
+st.subheader('Using a with clause only')
+
+with st.echo():
+    with st.beta_form('simple_with'):
+        text = st.text_input('Enter some text')
+
+
+st.subheader('Using the form assignment clause')
+
+with st.echo():
+    a = st.beta_form('form_assignement')
+    a.text_input('Enter some text')
+
+
+st.subheader('Combination of with and form assigmnent')
+
+with st.echo():
+    a = st.beta_form('combination')
+
+    with a:
+        text = st.text_input('Enter some text')
+
+    a.text_area('Enter a text area')
+
+st.markdown('---')
+
+st.title('Missing Form but having a submit button')
+
+st.code('''
+# Submit button without a form
+my_submit = st.beta_form_submit_button('My submit')''', language='python')
+
+st.write('We want this to throw an exception!')
+
+with st.echo():
+    my_submit = st.beta_form_submit_button('My submit')
+
 
