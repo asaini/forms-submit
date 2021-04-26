@@ -1,1 +1,1 @@
-streamlit-0.79.0.forms-py2.py3-none-any.whl
+streamlit-0.80.0-py`2.py3-none-any.whl
